@@ -3,22 +3,26 @@ import '../../models/transferencia.dart';
 import 'formulario.dart';
 import 'package:intl/intl.dart';
 
-class ListaTransferencias extends StatefulWidget {
-  final List<Transferencia> _transferencias = [];
+class ListaProcedimentosOdonto extends StatefulWidget {
+  final List<ProcedimentoOdonto> _procedimentos = [
+    ProcedimentoOdonto(180.0, 101, 'Limpeza dental'),
+    ProcedimentoOdonto(350.0, 102, 'Obturação'),
+  ];
 
   @override
   State<StatefulWidget> createState() {
-    return ListaTransferenciaState();
+    return ListaProcedimentosOdontoState();
   }
 }
 
-class ListaTransferenciaState extends State<ListaTransferencias> {
-  static const _tituloAppBar = "Transferências";
+class ListaProcedimentosOdontoState extends State<ListaProcedimentosOdonto> {
+  static const _tituloAppBar = "🦷 Mais Sorriso";
 
-  void _atualiza(Transferencia? transferenciaRecebida) {    
-    if (transferenciaRecebida != null) {
+  Future<void> _atualiza(ProcedimentoOdonto? procedimentoRecebido) async {
+    if (procedimentoRecebido != null) {
+      await Future.delayed(const Duration(seconds: 1));
       setState(() {
-        widget._transferencias.add(transferenciaRecebida);
+        widget._procedimentos.add(procedimentoRecebido);
       });
     }
   }
@@ -28,10 +32,10 @@ class ListaTransferenciaState extends State<ListaTransferencias> {
     return Scaffold(
       appBar: AppBar(title: Text(_tituloAppBar)),
       body: ListView.builder(
-        itemCount: widget._transferencias.length,
+        itemCount: widget._procedimentos.length,
         itemBuilder: (context, indice) {
-          final transferencia = widget._transferencias[indice];
-          return ItemTransferencia(transferencia);
+          final procedimento = widget._procedimentos[indice];
+          return ItemProcedimentoOdonto(procedimento);
         },
       ),
       floatingActionButton: FloatingActionButton(
@@ -40,11 +44,12 @@ class ListaTransferenciaState extends State<ListaTransferencias> {
           Navigator.push(context,
             MaterialPageRoute(
               builder: (context){
-                return FormularioTransferencia();
+                return FormularioProcedimentoOdonto();
               },
             ),
-          ).then((transferenciaRecebida) => _atualiza(transferenciaRecebida));         
+          ).then((procedimentoRecebido) => _atualiza(procedimentoRecebido));
         },
+        shape: CircleBorder(),
         child: Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -52,19 +57,22 @@ class ListaTransferenciaState extends State<ListaTransferencias> {
   }  
 }
 
-class ItemTransferencia extends StatelessWidget {
-  final Transferencia _transferencia;
+class ItemProcedimentoOdonto extends StatelessWidget {
+  final ProcedimentoOdonto _procedimento;
 
-  ItemTransferencia(this._transferencia);
+  ItemProcedimentoOdonto(this._procedimento);
 
   @override
   Widget build(BuildContext context) {
     NumberFormat formato = NumberFormat.simpleCurrency();
     return Card(
       child: ListTile(
-        leading: Icon(Icons.monetization_on),
-        title: Text(formato.format(_transferencia.valor).toString()),
-        subtitle: Text(_transferencia.numeroConta.toString()),
+        leading: Icon(Icons.medical_services),
+        title: Text(_procedimento.procedimento),
+        subtitle: Text(
+          'Ficha: ${_procedimento.numeroFicha}\n'
+          'Valor: ${formato.format(_procedimento.valor)}',
+        ),
       ),
     );
   }
