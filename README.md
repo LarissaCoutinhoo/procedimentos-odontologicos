@@ -1,16 +1,2 @@
-# bank
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Obrigada por visitar este app! 
+Este projeto trata-se de uma atividade avaliativa proposta pela disciplina de Programação para Dispositivos Móveis II e tem como objetivo aplicar os conhecimentos em Flutter aprendidos em aula. 
